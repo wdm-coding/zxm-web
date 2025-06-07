@@ -1,0 +1,1 @@
+import{_ as e,A as s,m as c}from"./index-B53cDDPh.js";const r={},t={class:"resume_wrap"};function _(a,o){return c(),s("div",t)}const d=e(r,[["render",_],["__scopeId","data-v-87a2dd40"]]);export{d as default};
