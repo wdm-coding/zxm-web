@@ -1,5 +1,6 @@
 <script setup>
   import {RouterView} from 'vue-router'
+  document.title = '卓晓敏-作品集'
 </script>
 
 <template>

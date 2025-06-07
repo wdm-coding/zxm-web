@@ -1,5 +1,5 @@
 <script setup name="Home">
-	import { ref, onMounted, watch } from 'vue'	
+	import { ref, onMounted, watch, watchEffect, nextTick } from 'vue'	
 	import {useRoute,useRouter} from "vue-router"
 	import { ElScrollbar } from "element-plus"
 	import resume from "@/components/resume.vue"
@@ -37,8 +37,7 @@
 			path:'#other'
 		}
 	]
-	const activeName = ref(route.hash)
-
+	const activeName = ref('')
 	const jump = (path) => {
 		activeName.value = path
 		router.push(path)
@@ -57,19 +56,17 @@
 			}
 		}
 	}
-
 	onMounted(() => {
 		activeName.value = '#resume'
 		router.push('#resume')
 	})
-
 	watch(() => route.hash, () => {
 		scrollToHash()
 	})
 </script>
 
 <template>
-	<el-scrollbar height="100vh" ref="scrollbarRef">
+	<el-scrollbar height="100vh" ref="scrollbarRef" @scroll="scroll">
 		<div class="home_wrap">
 			<header class="header_wrap">
 				<div class="nav_wrap" >
@@ -83,22 +80,22 @@
 				</div>
 				<div class="nav_bottom"></div>
 			</header>
-			<div id="resume" class="resume_home">
+			<div id="resume" class="resume_home box_item">
 				<resume></resume>
 			</div>
-			<div id="me" class="me_item">
+			<div id="me" class="me_item box_item">
 				<me></me>
 			</div>
-			<div id="web" class="section_item">
+			<div id="web" class="section_item box_item">
 				<web></web>
 			</div>
-			<div id="mobile" class="section_item">
+			<div id="mobile" class="section_item box_item">
 				<mobile></mobile>
 			</div>
-			<div id="visualization" class="section_item">
+			<div id="visualization" class="section_item box_item">
 				<visualization></visualization>
 			</div>
-      <div id="other" class="section_item">
+      <div id="other" class="section_item box_item">
 				<other></other>
 			</div>
 		</div>
@@ -134,6 +131,7 @@
 				}
 				.active{
 					position: relative;
+					color: #007bff;
 					&::after{
 						content: "";
 						display: block;
