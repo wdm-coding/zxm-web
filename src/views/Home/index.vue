@@ -1,5 +1,5 @@
 <script setup name="Home">
-	import { ref, onMounted, watch, watchEffect, nextTick } from 'vue'	
+	import { ref, onMounted, watch, watchEffect, nextTick, onUnmounted } from 'vue'	
 	import {useRoute,useRouter} from "vue-router"
 	import { ElScrollbar } from "element-plus"
 	import resume from "@/components/resume.vue"
@@ -8,8 +8,6 @@
 	import visualization from "@/components/visualization.vue"
 	import mobile from "@/components/mobile.vue"
 	import other from "@/components/other.vue"
-	const route = useRoute()
-	const router = useRouter()
 	const scrollbarRef = ref(null)
 	const list = [
 		{
@@ -40,11 +38,11 @@
 	const activeName = ref('')
 	const jump = (path) => {
 		activeName.value = path
-		router.push(path)
+		getScrollValue(path)
 	}
-	const scrollToHash = () => {
-		if (route.hash) {
-			const id = route.hash.replace('#', '')
+	const getScrollValue = (path) => {
+		if (path) {
+			const id = path.replace('#', '')
 			const element = document.getElementById(id)
 			if (element && scrollbarRef.value) {
 				const scrollbar = scrollbarRef.value.wrapRef
@@ -56,12 +54,33 @@
 			}
 		}
 	}
+	const debounceTimer = ref(null)
+	const scroll = e => {
+		// 增加防抖
+		if (debounceTimer.value) {
+			clearTimeout(debounceTimer.value)
+		}
+		debounceTimer.value = setTimeout(() => {
+			handleScroll(e)
+		}, 200)
+	}
+	const handleScroll = e => {
+		// 滚动时更新activeName.value、
+		const scrollTop = e.scrollTop
+		list.forEach(item => {
+			if (document.getElementById(item.path.replace('#', ''))) {
+				const element = document.getElementById(item.path.replace('#', ''))
+				if (element.offsetTop - 100 <= scrollTop) {
+					activeName.value = item.path
+				}
+			}
+		})
+	}
 	onMounted(() => {
 		activeName.value = '#resume'
-		router.push('#resume')
 	})
-	watch(() => route.hash, () => {
-		scrollToHash()
+	onUnmounted(()=>{
+		debounceTimer.value && clearTimeout(debounceTimer.value)
 	})
 </script>
 
