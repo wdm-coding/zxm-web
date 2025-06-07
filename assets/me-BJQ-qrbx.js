@@ -1,1 +1,0 @@
-import{_ as e,A as c,m as s}from"./index-Cc0-7SQV.js";const t={},_={class:"resume_wrap"};function o(r,a){return s(),c("div",_)}const d=e(t,[["render",o],["__scopeId","data-v-f39c727e"]]);export{d as default};
