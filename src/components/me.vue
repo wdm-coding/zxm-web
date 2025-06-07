@@ -14,5 +14,6 @@
   height: 900px;
   background: url('@/assets/resume/me.jpg') no-repeat center;
 	background-size: 100% 100%;
+  border-radius: 12px;
 }
 </style>

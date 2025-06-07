@@ -11,7 +11,7 @@ const list = arr.map(item=>({
 <template>
   <div class='web_wrap'>
     <div v-for="item in list" :key="item.id" class="img_item">
-      <img :src="item.src" style="width:1440px;height: auto;">
+      <img :src="item.src" style="width:1440px;height: auto;border-radius: 12px;">
     </div>
   </div>
 </template>
