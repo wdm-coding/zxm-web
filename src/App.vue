@@ -11,6 +11,5 @@
 <style lang="scss" scoped>
 .app_wrap{
   width: 100vw;
-  overflow-x: hidden;
 }
 </style>

@@ -59,7 +59,8 @@
 	}
 
 	onMounted(() => {
-		scrollToHash()
+		activeName.value = '#resume'
+		router.push('#resume')
 	})
 
 	watch(() => route.hash, () => {
@@ -109,7 +110,7 @@
 		width: 100vw;
 		background-color: #f5f5f5;
 		overflow-x: hidden;
-		padding-top: 110px;
+		padding-top: 80px;
 		.header_wrap {
 			width: 1440px;
 			position: fixed;
@@ -147,7 +148,7 @@
 			}
 			.nav_bottom{
 				width: 100%;
-				height: 30px;
+				height: 20px;
 				background-color: #f5f5f5;
 			}
 		}
